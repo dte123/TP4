@@ -27,6 +27,9 @@ $\cdot$ Seulement accepter des montants entre [0, 10000].\\
 
 \textbf{Pour le type de devise}\\
 
+\textbf{$\cdot$ Classes d'équivalence}\\
+
+
 Dans le code, il existe un moyen de construire des objets de type CurrencyConversion. Cela générera des objets contenant plusieurs devises, qui peuvent répondre à nos exigences de test. De plus, j'ai choisi de réutiliser le même code pour plus de commodité. La structure de base du test est la suivante. Déterminez si chaque cas de test réussit en jugeant le résultat de l'exécution de la couverture ou de l'exception levée.\\
 \includegraphics[scale=0.5]{G1.png}\\
 
@@ -37,6 +40,8 @@ Lorsque j'utilise AUD et FJD qui ne devraient pas être pris en charge pour la c
 \includegraphics[scale=0.7]{G3.png}\\
 
 \textbf{Pour plage numérique}\\
+
+\textbf{$\cdot$ D’analyse des valeurs frontières}\\
 
 Pour le test d'intervalle numérique, j'ai sélectionné le point final de l'intervalle, dans l'intervalle et hors de l'intervalle.\\
 \includegraphics[scale=0.6]{G4.png} \includegraphics[scale=0.65]{G5.png}\\
