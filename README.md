@@ -9,5 +9,6 @@ https://github.com/dte123/TP4.git
 
 ## Explication
 - `ExpensesManager-master` est le fichier d'origine.
-- `ExpensesManager\src\test\java\ua\karatnyk\TestCurrencyConvertor.java` est le fichier de code pour tester
+- `ExpensesManager\src\test\java\ua\karatnyk\TestCurrencyConvertor.java` est le fichier de code pour tester.
+- `IFT3913_TP4.pdf` est le rapport.
 
