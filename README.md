@@ -8,4 +8,4 @@
 https://github.com/dte123/TP4.git
 
 ## Explication
-- 
+- `ExpensesManager-master` est le fichier d'origine.
