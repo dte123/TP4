@@ -53,18 +53,14 @@ class TestCurrencyConvertor {
             fail("unsupported currency");
         }
     }
-    @Test
-    void testConvert4(){
+    @Test(expected=ParseException.class)
+    void testConvert4() {
         OfflineJsonWorker  manager = new OfflineJsonWorker();
         CurrencyConversion conversion = manager.parser();
-        try{
-            double res = CurrencyConvertor.convert(1,"FJD" ,"AUD" ,conversion);
-            fail("unexpected supported currency");
-        } catch (ParseException e){
-            ParseException expected = new ParseException("Not correct format currency"
-                    + "", 0);
-            assertEquals(e.getMessage(),expected.getMessage());
-        }
+
+        double res = CurrencyConvertor.convert(1,"FJD" ,"AUD" ,conversion);
+        fail("unexpected supported currency");
+
     }
     @Test
     void testConvert5(){
@@ -125,6 +121,86 @@ class TestCurrencyConvertor {
         try{
             double res = CurrencyConvertor.convert(10001,"USD" ,"EUR" ,conversion);
             assertFalse(res>0);
+        } catch (ParseException e){
+            ParseException expected = new ParseException("Not correct format currency"
+                    + "", 0);
+            fail("unsupported currency");
+        }
+    }
+
+    // white box tests
+    @Test
+    void testConvert10(){
+        Map<String, Double> map = new TreeMap<>();
+        map.put("EUR",1.0);
+        map.put("USD",2.0);
+        map.put("CAD",3.0);
+        map.put("GBP",4.0);
+        CurrencyConversion conversion = new CurrencyConversion();
+        conversion.setRates(map);
+        try{
+            double res = CurrencyConvertor.convert(3,"USD" ,"EUR" ,conversion);
+            assertEquals(res,1.5);
+        } catch (ParseException e){
+            ParseException expected = new ParseException("Not correct format currency"
+                    + "", 0);
+            fail("unsupported currency");
+        }
+    }
+    @Test(expected=ParseException.class)
+    void testConvert11(){
+        Map<String, Double> map = new TreeMap<>();
+        map.put("EUR",1.0);
+        map.put("USD",2.0);
+        map.put("CAD",3.0);
+        map.put("GBP",4.0);
+        CurrencyConversion conversion = new CurrencyConversion();
+        conversion.setRates(map);
+
+        double res = CurrencyConvertor.convert(3,"AUD" ,"EUR" ,conversion);
+        fail("unexpected supported currency");
+
+    }
+    @Test(expected=ParseException.class)
+    void testConvert12(){
+        Map<String, Double> map = new TreeMap<>();
+        map.put("EUR",1.0);
+        map.put("USD",2.0);
+        map.put("CAD",3.0);
+        map.put("GBP",4.0);
+        CurrencyConversion conversion = new CurrencyConversion();
+        conversion.setRates(map);
+
+        double res = CurrencyConvertor.convert(3, "EUR","AUD" ,conversion);
+        fail("unexpected supported currency");
+
+    }
+    @Test(expected=ParseException.class)
+    void testConvert13(){
+        Map<String, Double> map = new TreeMap<>();
+        map.put("EUR",1.0);
+        map.put("USD",2.0);
+        map.put("CAD",3.0);
+        map.put("GBP",4.0);
+        CurrencyConversion conversion = new CurrencyConversion();
+        conversion.setRates(map);
+
+        double res = CurrencyConvertor.convert(3, "INR","AUD" ,conversion);
+        fail("unexpected supported currency");
+
+    }
+    @Test
+    void testConvert14(){
+        Map<String, Double> map = new TreeMap<>();
+        map.put("EUR",1.0);
+        map.put("USD",0.0);
+        map.put("CAD",3.0);
+        map.put("GBP",4.0);
+        CurrencyConversion conversion = new CurrencyConversion();
+        conversion.setRates(map);
+        try{
+            double res = CurrencyConvertor.convert(3, "USD","EUR" ,conversion);
+            assertNotEquals(res,1.0/0.0);
         } catch (ParseException e){
             ParseException expected = new ParseException("Not correct format currency"
                     + "", 0);
